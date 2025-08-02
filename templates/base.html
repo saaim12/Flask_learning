@@ -1,26 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <link rel="stylesheet" href="{{url_for('static', filename='format.css')}}" />
-
-  <title>{% block title %}<!-- Placeholder for Title -->{% endblock %} - Jinja Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='format.css') }}" />
+    <title>{% block title %}{% endblock %} - Jinja Demo</title>
 
     {% block head %}
-    <!-- Placeholder for Other Imports -->
     {% endblock %}
 
+    <style>
+        nav {
+            background-color: #333;
+            padding: 10px 20px;
+        }
 
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+        }
 
+        nav a:hover {
+            text-decoration: underline;
+        }
 
+        #header {
+            background-color: #f4f4f4;
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        #footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: #eee;
+        }
+    </style>
 </head>
 <body>
-    <div id="header"> JINJA DEMO </div>
+    <div id="header">JINJA DEMO</div>
+
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+
+        {% if 'user' in session %}
+        <a href="{{ url_for('signout') }}">Sign out</a>
+
+        {% else %}
+          <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('signup') }}">Sign Up</a>
+        {% endif %}
+    </nav>
+
     <div id="content">
         {% block content %}
-        <!-- Placeholder for Page Content -->
         {% endblock %}
     </div>
-    <div id="footer"> Copyright © 2019 All Rights Reserved </div>
+
+    <div id="footer">Copyright © 2019 All Rights Reserved</div>
 </body>
 </html>

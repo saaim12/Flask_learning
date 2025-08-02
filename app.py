@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,abort,redirect,url_for
+from flask import Flask,render_template,request,abort,redirect,url_for,session
 from form import LoginForm,SignUpForm
 
 app=Flask(__name__)
@@ -54,6 +54,12 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
+
+        user = next((user for user in users if user["email"] == form.email.data and user["password"] == form.password.data),None)
+        if user is None:
+            return render_template("login.html", form = form, message = "Wrong Credentials. Please Try Again.")
+        else:
+            session['user'] = user
         print("Submitted and Valid.")
         return redirect(url_for('home'))
     elif form.errors:
@@ -61,15 +67,25 @@ def login():
         print(form.email.errors)
         print(form.password.errors)
     return render_template("login_form_with_wtf.html", form = form)
-@app.route("/signup", methods=["POST", "GET"])
+
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    """View function for Showing Details of Each Pet."""
     form = SignUpForm()
     if form.validate_on_submit():
-        new_user = {"id": len(users)+1, "full_name": form.full_name.data, "email": form.email.data, "password": form.password.data}
-        users.append(new_user)
-        return render_template("signup.html", message = "Successfully signed up")
-    return render_template("signup.html", form = form)
+        email = form.email.data
+        password = form.password.data
+        print(f"Registered: {email} with password: {password}")
+        return redirect(url_for('login'))  # or home
+    return render_template('signup_form.html', form=form)
+
+@app.route('/signout')
+def signout():
+    if 'user' in session:
+        session.pop('user')
+        #this will remove all the data froom the server like other users data as well
+        #session.clear()
+
+    return redirect(url_for('home', _scheme='http', _external=True))
 
 
 @app.errorhandler(404)
