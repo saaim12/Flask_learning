@@ -1,5 +1,6 @@
-from flask import Flask,render_template,request,abort
-from form import LoginForm
+from flask import Flask,render_template,request,abort,redirect,url_for
+from form import LoginForm,SignUpForm
+
 app=Flask(__name__)
 
 pets = [
@@ -14,6 +15,10 @@ Users = {
                 "Betty":"San Francisco",
                 "Jughead":"Los Angeles"
             }
+users=[
+    {'email':'saim@gmail.com','password':'11223344'}
+]
+app.config['SECRET_KEY'] = 'dfewfew123213rwdsgert34tgfd1234trgf'
 @app.route('/')
 def home():
     print('home page loaded')
@@ -25,6 +30,46 @@ def detail(id):
         abort(404, description="No Pet was Found with the given ID")
     else:
         return render_template("details.html",pet=pet)
+
+# with request method
+# @app.route('/login', methods=['POST', 'GET'])
+# def login():
+#     if request.method == "POST":
+#         email = request.form["email"]
+#         password = request.form["password"]
+#         print(email, password)
+#
+#         for user in users:
+#             if user['email'] == email and user['password'] == password:
+#                 return redirect(url_for('home'))
+#
+#         return render_template("login_form_with_request.html", message="Incorrect Email or Password")
+#
+#     return render_template("login_form_with_request.html")
+
+#with crsf wtf
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        print("Submitted and Valid.")
+        return redirect(url_for('home'))
+    elif form.errors:
+        print(form.errors.items())
+        print(form.email.errors)
+        print(form.password.errors)
+    return render_template("login_form_with_wtf.html", form = form)
+@app.route("/signup", methods=["POST", "GET"])
+def signup():
+    """View function for Showing Details of Each Pet."""
+    form = SignUpForm()
+    if form.validate_on_submit():
+        new_user = {"id": len(users)+1, "full_name": form.full_name.data, "email": form.email.data, "password": form.password.data}
+        users.append(new_user)
+        return render_template("signup.html", message = "Successfully signed up")
+    return render_template("signup.html", form = form)
 
 
 @app.errorhandler(404)
