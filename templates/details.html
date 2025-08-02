@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mr. Furrkins - Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fef6e4;
+            color: #333;
+            padding: 40px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+        }
+        h1 {
+            color: #ff6b6b;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>{{pet.name}}</h1>
+    <p><span class="label">ID:</span> {{pet.id}}</p>
+    <p><span class="label">Age:</span> {{pet.age}}</p>
+    <p><span class="label">Bio:</span> {{pet.bio}}</p>
+</div>
+
+</body>
+</html>
