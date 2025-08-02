@@ -1,0 +1,14 @@
+Topics so far
+Static routing  -----
+Dynamic routing   ------>> in Basics folder
+
+Static templates
+used by the file like html and url_for() function for the static file loading in another file also used for the routing function
+
+Dunamic templates
+Using jinja
+in this variables control flow andd templae inheritance
+
+
+
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Jinja2 Demo</title>
+</head>
+<body>
+
+    <h1>Users from Los Angeles</h1>
+    <table style="width:100%; text-align:center; border-collapse: collapse;" border="1">
+        <tr>
+            <th>Index</th>
+            <th>Username</th>
+            <th>Location</th>
+        </tr>
+        {% for username, location in users.items() %}
+            {% if location == "Los Angeles" %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ username }}</td>
+                    <td>{{ location }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+    <h2>Jinja2 Conditional Control Flow</h2>
+    <p>
+        Jinja2 allows conditional rendering using <code>if</code>, <code>elif</code>, and <code>else</code> blocks. For example:
+    </p>
+    <pre>
+{% if condition %}
+    Do something
+{% elif other_condition %}
+    Do something else
+{% else %}
+    Do default thing
+{% endif %}
+    </pre>
+
+</body>
+</html>
