@@ -1,8 +1,9 @@
 from flask import Flask,render_template,request,abort,redirect,url_for,session
 from form import LoginForm,SignUpForm
+from flask_sqlalchemy import SQLAlchemy
 
 app=Flask(__name__)
-
+db = SQLAlchemy(app)
 pets = [
             {"id": 1, "name": "Nelly", "age": "5 weeks", "bio": "I am a tiny kitten rescued by the good people at Paws Rescue Center. I love squeaky toys and cuddles."},
             {"id": 2, "name": "Yuki", "age": "8 months", "bio": "I am a handsome gentle-cat. I like to dress up in bow ties."},

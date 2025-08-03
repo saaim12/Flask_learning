@@ -8,6 +8,37 @@ used by the file like html and url_for() function for the static file loading in
 Dunamic templates
 Using jinja
 in this variables control flow andd templae inheritance
+modeling ORM object relation mapping
+#
+#  The first parameter of the column defines the data type for the column. Following are the allowed class names:
+#
+# Integer
+# String(size)
+# Text
+# DateTime
+# Float
+# Boolean
+# PickleType
+# LargeBinary
+# There are many optional parameters as well; some of the most commonly used ones are given below:
+#
+# primary_key: If set True, it will indicate the primary key of the table.
+# nullable: If set False, it will be compulsory to set the value for that column.
+# unique: If this parameter is set to True then all values for this column are checked for uniqueness.
+# index: Setting it to True indicates that this column will be indexed.
+
+db.create_all() # for creating all in database
+
+In the last step, we created a relationship() column in the Department model. However, we have not yet specified which rows of the Employee are associated with a particular row of Department. To cater to this problem, we will add a backref argument to the relationship() function.
+
+Press
++
+to interact
+Ace Editor
+In the snippet given above, on line #4, we added a backref argument equal to 'department'. What this back-reference means is that a virtual variable department will be created in the Employee table. This way, we can refer to it by employee.department.
+
+💭 You might wonder why we need a back-reference when we already have the ForeignKey() column in the User table?
+Yes, we already have a foreign key. However, that only gives us the name column of the department row. The backref that we created in a department will act as a virtual column in the user table containing the whole row of the department.
 
 
 
